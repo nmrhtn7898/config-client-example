@@ -4,11 +4,13 @@
 * bootstrap.yml 설정 파일에 아래와 같이 클라이언트 애플리케이션 이름, 프로파일, 컨피그 서버 호스트 설정
 * application.yml 설정 파일에 아래와 같이 애플리케이션 구동 포트, 스프링 actuator refresh 엔드포인트
 를 통해 컨피그 서버 외부 설정 파일 변경 적용 가능 하도록 설정
-* pom.xml spring cloud starter config(client) 의존성 및 버전 관리 설정  
+* pom.xml spring cloud starter config(client), spring security rsa  의존성 및 버전 관리 설정  
 
 ###### bootstrap.yml
 
 ```$xslt
+encrypt:
+  key: nuguribom [컨피그 서버에서 받은 암호화 프로퍼티 복호화 키]
 spring:
   application:
     name: testservice
@@ -24,12 +26,11 @@ spring:
 ```$xslt
 server:
   port: 8000
-
 management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: refresh,env [애플리케이션 모니터링 refresh, env 엔드포인트 허용]
 ```
 
 ###### pom.xml
@@ -39,6 +40,10 @@ management:
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-rsa</artifactId>
         </dependency>
     </dependencies>
 
@@ -60,12 +65,13 @@ management:
 * bootstrap.yml 파일에서 설정한 application.name, profiles.active 값으로 컨피그 서버에서 
 /{application-name}/{profiles} 엔드포인트로 접근하여 현재 애플리케이션의 구동 프로파일의 설정 값을 읽음.
 * bootstrap.yml 파일은 application.yml 파일 로드전에 읽으며 주로 애플리케이션 구동에 필요한 외부 설정 값을 
-읽어 오기 위한 설정 값을(현재 애플리케이션 이름, 프로파일, 컨피그 서버 호스트) 설정한다. 하지만 반드시 bootstrap.yml
-파일에 설정하지 않고 application.yml 파일에 작성하여도 상관 없다.
+읽어 오기 위한 spring cloud 설정 값을(현재 애플리케이션 이름, 프로파일, 컨피그 서버 호스트) 설정한다.
 * bootstrap.yml, application.yml에 모두 동일한 설정 값을 지정하면 bootstrap -> application 순으로 읽으므로
 application.yml 설정 파일에 있는 값이 overwrite 하고 그 값을 사용한다.
 * 기존에 bootstrap.yml, application.yml 파일에 작성된 설정 값을 외부 컨피그 서버를 통해 동일한 설정 값을 가져오는 경우
 외부 컨피그 서버에서 가져온 설정 값으로 overwrite 하고 그 값을 사용한다.
+* 외부 설정 파일의 암호화 프로퍼티의 경우 컨피그 서버에서 복호화 하지않고 클라이언트에게 복호화를 위임한 경우 {cipher} prefix 
+적용되어 있으며 클라이언트에서 encrypt.key 사용하여 복호화를 수행한다.
 
 3\. 사용 방법
 * 외부 컨피그 서버에서 읽어온 설정 파일들의 내용을 접근할 수 있도록 /property/** 엔드포인트 노출.
