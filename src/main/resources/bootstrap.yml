@@ -1,3 +1,5 @@
+encrypt:
+  key: nuguribom
 spring:
   application:
     name: testservice
