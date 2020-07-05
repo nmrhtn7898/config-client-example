@@ -72,7 +72,7 @@ application.yml 설정 파일에 있는 값이 overwrite 하고 그 값을 사�
 * ex) /property/name/firstname, /property/name/lastname, /property/name/message 와 같은 형태로 사용 가능.
 * 프로퍼티 접근 엔드포인트 호출 URL PATH를 사용하여 프로퍼티 값을 읽은 후 응답한다.
 
-###### [프로퍼티 접근 엔드포인트]()
+###### [프로퍼티 접근 엔드포인트](https://github.com/nmrhtn7898/config-client-example/blob/master/src/main/java/com/example/springcloudconfigclient/controller/PropertyController.java)
 ```$xslt
 
     @GetMapping("/property/**")
@@ -87,7 +87,7 @@ application.yml 설정 파일에 있는 값이 overwrite 하고 그 값을 사�
 
 ```
 
-###### [프로퍼티 엔드포인트 Argument Resolver]()
+###### [프로퍼티 엔드포인트 Argument Resolver](https://github.com/nmrhtn7898/config-client-example/blob/master/src/main/java/com/example/springcloudconfigclient/config/WildCardPathVariableArgumentResolver.java)
 
 ```$xslt
 
