@@ -68,12 +68,12 @@ management:
 * [Spring Cloud Config Server](https://github.com/nmrhtn7898/config-server) 엔드 포인트를 통해 외부 설정 정보를 읽는다.
 * bootstrap.yml 파일에서 설정한 application.name, profiles.active 값으로 컨피그 서버에서 
 /{application-name}/{profiles} 엔드포인트로 접근하여 현재 애플리케이션의 구동 프로파일의 설정 값을 읽음.
-* bootstrap.yml 파일은 application.yml 파일 로드전에 읽으며 주로 애플리케이션 구동에 필요한 외부 설정 값을 
-읽어 오기 위한 spring cloud 설정 값을(현재 애플리케이션 이름, 프로파일, 컨피그 서버 호스트) 설정한다.
+* bootstrap.yml 파일은 application.yml 파일 로드전에 읽으며 spring cloud 설정 값을(현재 애플리케이션 이름, 프로파일, 컨피그 서버 호스트) 설정한다.
+bootstrap.yml 파일에 설정한 값들은 애플리케이션 구동에 필요한 외부 설정 값을 읽어 오기 위해 부모 애플리케이션 컨텍스트를 생성하고 bootstrap.yml 
+파일의 스프링 클라우드 설정 정보로 컨피그 서버에서 외부 설정 값을 읽어 온다. 
 * bootstrap.yml, application.yml에 모두 동일한 설정 값을 지정하면 bootstrap -> application 순으로 읽으므로
-application.yml 설정 파일에 있는 값이 overwrite 하고 그 값을 사용한다.
-* 기존에 bootstrap.yml, application.yml 파일에 작성된 설정 값을 외부 컨피그 서버를 통해 동일한 설정 값을 가져오는 경우
-외부 컨피그 서버에서 가져온 설정 값으로 overwrite 하고 그 값을 사용한다.
+application.yml 설정 파일에 있는 값이 overwrite 하고 그 값을 사용하며 컨피그 서버에서도 동일 프로퍼티의 값을 읽어오는 경우
+컨피그 서버에서 읽어온 설정 정보를 우선으로 사용한다.
 * 외부 설정 파일의 암호화 프로퍼티의 경우 컨피그 서버에서 복호화 하지않고 클라이언트에게 복호화를 위임한 경우 {cipher} prefix 
 적용되어 있으며 클라이언트에서 encrypt.key 사용하여 복호화를 수행한다.
 
