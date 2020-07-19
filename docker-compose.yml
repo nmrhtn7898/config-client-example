@@ -13,7 +13,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
-      POSTGRES_DB: "test-database"
+      POSTGRES_DB: "testdb"
   clientserver:
     container_name: "clientserver"
     image: spring-cloud-config-client:1.0

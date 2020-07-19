@@ -1,7 +1,15 @@
 server:
   port: 8000
+
 management:
   endpoints:
     web:
       exposure:
         include: refresh,env
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eurekaserver:8761/eureka/
