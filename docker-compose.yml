@@ -1,0 +1,27 @@
+version: '3'
+networks:
+  config-server_myweb:
+    external: true
+services:
+  database:
+    container_name: "database"
+    image: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - config-server_myweb
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "p0stgr@s"
+      POSTGRES_DB: "test-database"
+  clientserver:
+    container_name: "clientserver"
+    image: spring-cloud-config-client:1.0
+    ports:
+      - "8000:8000"
+    networks:
+      - config-server_myweb
+    environment:
+      RUN_MESSAGE: "HELLO !!"
+      DATABASESERVER_PORT: "5432"
+
