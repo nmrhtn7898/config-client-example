@@ -2,7 +2,7 @@ encrypt:
   key: nuguribom
 spring:
   application:
-    name: test
+    name: testservice
   profiles:
     active: default
   cloud:

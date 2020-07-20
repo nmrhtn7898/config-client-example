@@ -19,7 +19,7 @@ public class OrganizationDiscoveryClient {
 
     public Organization getOrganization(Long organizationId) {
         RestTemplate restTemplate = new RestTemplate();
-        List<ServiceInstance> instances = discoveryClient.getInstances("organizationservice");
+        List<ServiceInstance> instances = discoveryClient.getInstances("testservice2");
 
         if (instances.isEmpty()) {
             return null;
