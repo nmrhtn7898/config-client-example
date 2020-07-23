@@ -1,4 +1,4 @@
-#!/bin/
+#!/bin/sh
 
 echo "********************************************************"
 echo "waiting for the database server to start on port $DATABASESERVER_PORT"
