@@ -7,12 +7,13 @@ import com.example.springcloudconfigclient.entity.License;
 import com.example.springcloudconfigclient.entity.Organization;
 import com.example.springcloudconfigclient.respository.LicenseRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LicenseService {
 
@@ -36,6 +37,7 @@ public class LicenseService {
     }
 
 
+    @Transactional(readOnly = true)
     public License getLicenseWithOrganization(Long id, Long organizationId, String clientType) {
         License license = licenseRepository.findByIdAndOrganizationId(id, organizationId);
         Organization organizaiton = getOrganizaiton(organizationId, clientType);
