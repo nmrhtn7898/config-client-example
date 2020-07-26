@@ -5,7 +5,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,env
+        include: "*"
 
 eureka:
   instance:

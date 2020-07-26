@@ -11,11 +11,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Component
-@RequiredArgsConstructor
+//@Component
+//@RequiredArgsConstructor
 public class OrganizationDiscoveryClient {
 
-    private final DiscoveryClient discoveryClient;
+    /*private final DiscoveryClient discoveryClient;
 
     public Organization getOrganization(Long organizationId) {
         RestTemplate restTemplate = new RestTemplate();
@@ -32,6 +32,6 @@ public class OrganizationDiscoveryClient {
                 .exchange(serviceUri, HttpMethod.GET, null, Organization.class, organizationId);
 
         return exchange.getBody();
-    }
+    }*/
 
 }

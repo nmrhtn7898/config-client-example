@@ -16,7 +16,7 @@ public class LicenseController {
 
     private final LicenseService licenseService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity getLicenses(@PathVariable Long organizationId) {
         List<License> licenses = licenseService.getLicensesByOrganizationId(organizationId);
         return ResponseEntity.ok(licenses);
