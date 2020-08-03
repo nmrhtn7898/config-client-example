@@ -35,14 +35,8 @@ public class OrganizationRestTemplateClient {
             fallbackMethod = "buildFallBack" // 자원(DB, 서비스) 타임 아웃 및 실패 시 호출되는 메소드 적용(폴백 패턴)
     )
     public Organization getOrganization(Long organizationId) {
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         ResponseEntity<Organization> exchange = restTemplate
                 .exchange("http://testservice2/v1/organizations/{organizationId}", HttpMethod.GET, null, Organization.class, organizationId);
-
         return exchange.getBody();
     }
 
