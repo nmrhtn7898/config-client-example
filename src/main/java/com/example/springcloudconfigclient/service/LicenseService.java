@@ -1,6 +1,6 @@
 package com.example.springcloudconfigclient.service;
 
-import com.example.springcloudconfigclient.clients.OrganizationRestTemplateClient;
+import com.example.springcloudconfigclient.client.OrganizationRestTemplateClient;
 import com.example.springcloudconfigclient.entity.License;
 import com.example.springcloudconfigclient.entity.Organization;
 import com.example.springcloudconfigclient.respository.LicenseRepository;

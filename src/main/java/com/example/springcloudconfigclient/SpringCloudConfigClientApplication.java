@@ -1,14 +1,16 @@
 package com.example.springcloudconfigclient;
 
+import com.example.springcloudconfigclient.interceptor.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 // @EnableDiscoveryClient // OrganizationDiscoveryClient, 유레카 서버에 등록된 서비스 인스턴스 디스커버리, 직접 호출 서비스를 찾고 선택 떄문에 리본의 클라이언트측 로드밸런싱 불가
 // @EnableFeignClients // OrganizationFeignClient, 서비스 인스턴스 디스커버리, 리본의 클라이언트측 로드밸런싱 가능, 높은 추상화 레벨
@@ -20,7 +22,11 @@ public class SpringCloudConfigClientApplication {
     @LoadBalanced // 스프링 RestTemplate 리본 라이브러리의 클라이언트측 로드밸런싱 적용
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+        interceptors.add(new UserContextInterceptor()); // 서비스 인스턴스들로 라우팅 되는 요청을 인터셉트하여 헤더를 설정하는 인터셉터 설정
+        restTemplate.setInterceptors(interceptors);
+        return restTemplate;
     }
 
     public static void main(String[] args) {

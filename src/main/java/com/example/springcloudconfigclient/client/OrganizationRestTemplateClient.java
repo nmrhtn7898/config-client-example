@@ -1,4 +1,4 @@
-package com.example.springcloudconfigclient.clients;
+package com.example.springcloudconfigclient.client;
 
 import com.example.springcloudconfigclient.entity.Organization;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
