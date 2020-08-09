@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +17,7 @@ import java.util.List;
 // @EnableFeignClients // OrganizationFeignClient, 서비스 인스턴스 디스커버리, 리본의 클라이언트측 로드밸런싱 가능, 높은 추상화 레벨
 @EnableCircuitBreaker // 히스트릭스 회로 차단기 패턴 적용, 장애서비스가 쓰레드 및 DB 커넥션을 오래 점유함으로써 서버가 다운되는 것을 막기 위한 회복 패턴
 @EnableEurekaClient // 유레카 클라이언트 등록
+@EnableHystrixDashboard
 @SpringBootApplication
 public class SpringCloudConfigClientApplication {
 

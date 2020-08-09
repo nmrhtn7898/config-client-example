@@ -29,7 +29,7 @@ public class OrganizationRestTemplateClient {
             }, // 회로가 차단되면 metrics.rollingStats.timeInMilliseconds에서 설정한 주기마다 서비스 호출을 모니터링하는 싸이클이 아닌 circuitBreaker.sleepWindowInMilliseconds에서 설정한 주기마다 서비스 호출을 허용하고 호출이 성공하면 회로 차단기를 초기화 하고 다시 호출을 허용하는 싸이클 수행
             threadPoolProperties = {
                     @HystrixProperty(name = "coreSize", value = "30"), // 해당 서비스 호출에 사용 될 쓰레드 풀의 쓰레드 갯수 정의(벌크 헤드 패턴)
-                    @HystrixProperty(name = "maxQueueSize", value = "10") // 쓰레드 풀에 앞 단에 배치 할 요청 Queue의 사이즈를 정의(벌크 헤드 패턴), 요청 수가 Queue를 초과하는 경우 size 여유가 생길때 까지 쓰레드 풀에 대한 추가 요청 실패
+                    @HystrixProperty(name = "maxQueueSize", value = "10") // 쓰레드 풀 앞 단에 배치 할 요청 Queue의 사이즈를 정의(벌크 헤드 패턴), 가용한 쓰레드 풀을 초과하는 경우 Queue에서 대기하고 요청 수가 Queue를 초과하는 경우 Queue에 여유가 생길때 까지 쓰레드 풀에 대한 추가 요청 실패
             },
             threadPoolKey = "licenseByOrganizationIdTP", // 해당 회로차단 서비스 호출에 사용 될 쓰레드 풀 고유명 정의(벌크 헤드 패턴)
             fallbackMethod = "buildFallBack" // 자원(DB, 서비스) 타임 아웃 및 실패 시 호출되는 메소드 적용(폴백 패턴)
