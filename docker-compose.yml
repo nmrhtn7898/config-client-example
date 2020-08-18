@@ -8,6 +8,8 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+    networks:
+      - eureka-server_myweb
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "p0stgr@s"
@@ -18,7 +20,6 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - default
       - eureka-server_myweb
     environment:
       RUN_MESSAGE: "HELLO !!"
