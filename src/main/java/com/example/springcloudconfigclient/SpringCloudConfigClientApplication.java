@@ -3,12 +3,15 @@ package com.example.springcloudconfigclient;
 import com.example.springcloudconfigclient.interceptor.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 @EnableCircuitBreaker // 히스트릭스 회로 차단기 패턴 적용, 장애서비스가 쓰레드 및 DB 커넥션을 오래 점유함으로써 서버가 다운되는 것을 막기 위한 회복 패턴
 @EnableEurekaClient // 유레카 클라이언트 등록
 @EnableHystrixDashboard
+@EnableResourceServer
 @SpringBootApplication
 public class SpringCloudConfigClientApplication {
 
@@ -30,6 +34,16 @@ public class SpringCloudConfigClientApplication {
         restTemplate.setInterceptors(interceptors);
         return restTemplate;
     }
+
+/*    @LoadBalanced
+    @Bean
+    public OAuth2RestTemplate restTemplate(UserInfoRestTemplateFactory factory) {
+        OAuth2RestTemplate restTemplate = factory.getUserInfoRestTemplate();
+        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+        interceptors.add(new UserContextInterceptor());
+        restTemplate.setInterceptors(interceptors);
+        return restTemplate;
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudConfigClientApplication.class, args);

@@ -11,8 +11,6 @@ public class UserContext {
 
     public static final String CORRELATION_ID = "nuguri-correlation-id";
 
-    public static final String AUTH_TOKEN = "nuguri-auth-token";
-
     public static final String USER_ID = "nuguri-user-id";
 
     public static final String ORG_ID = "nuguri-org-id";

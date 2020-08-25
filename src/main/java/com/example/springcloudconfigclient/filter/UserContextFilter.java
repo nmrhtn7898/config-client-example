@@ -3,6 +3,7 @@ package com.example.springcloudconfigclient.filter;
 import com.example.springcloudconfigclient.util.UserContext;
 import com.example.springcloudconfigclient.util.UserContextHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -21,10 +22,12 @@ public class UserContextFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         UserContext context = UserContextHolder.getContext();
         String correlationId = httpServletRequest.getHeader(UserContext.CORRELATION_ID);
+        String token = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
         context.setCorrelationId(correlationId);
-        context.setAuthToken(httpServletRequest.getHeader(UserContext.AUTH_TOKEN));
+        context.setAuthToken(token);
         context.setOrgId(httpServletRequest.getHeader(UserContext.ORG_ID));
         context.setUserId(httpServletRequest.getHeader(UserContext.USER_ID));
+        log.debug("route service incoming auth token : {}", token);
         log.debug("route service incoming correlation id : {}", correlationId);
         chain.doFilter(request, response);
     }
